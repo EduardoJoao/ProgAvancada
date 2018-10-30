@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReproducaoVideoActivity"></activity>
+        <activity android:name=".ReproducaoVideoActivity" />
+        <activity android:name=".ReproducaoMusicaActivity"></activity>
     </application>
 
 </manifest>

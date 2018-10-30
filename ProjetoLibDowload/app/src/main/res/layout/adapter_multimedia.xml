@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/imageCapa"
+        android:layout_width="55dp"
+        android:layout_height="43dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/play" />
+
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="120dp"
+        android:layout_height="41dp"
+        android:text="Titulo"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/botaoDownload"
+        android:layout_width="41dp"
+        android:layout_height="41dp"
+        android:background="@drawable/downloadimage" />
+
+
+</LinearLayout>
