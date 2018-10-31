@@ -1,5 +1,7 @@
 package br.edu.fbv.projetolibdowload.Dowload;
 
+import android.os.Environment;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -29,8 +31,8 @@ public class Download_img implements Runnable  {
 
             BufferedInputStream in = new BufferedInputStream(http.getInputStream());
 
-            File csvdestino =  new File(String.valueOf(this.f));
-            FileOutputStream fos = new FileOutputStream(csvdestino);
+            //File csvdestino =  new File(String.valueOf(this.f));
+            FileOutputStream fos = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath()+"/imagem.jpg");
             BufferedOutputStream bout = new BufferedOutputStream(fos, 1024);
             byte[] buffer = new byte[1024];
             double dowloaded = 0.00;
