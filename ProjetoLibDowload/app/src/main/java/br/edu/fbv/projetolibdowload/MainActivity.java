@@ -1,5 +1,6 @@
 package br.edu.fbv.projetolibdowload;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,12 @@ public class MainActivity extends AppCompatActivity {
     Button botaoMusica;
     Button baixarimg;
 
+    private  String[] permissoesApp = new String []{
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+
+    };
+
     final File destination = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS );
     final String url = ("https://firebasestorage.googleapis.com/v0/b/teste-b3d5f.appspot.com/o/Prestadores-de-servi%C3%A7o.jpg?alt=media&token=d11c7ee2-2003-4715-b57e-9b446497a98b");
 
@@ -23,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Validar Permissoes Do App
+
+        Permissao.validarPermissoes(permissoesApp , this , 1);
+
 
 
         botaovideo = findViewById(R.id.botaovideo);
