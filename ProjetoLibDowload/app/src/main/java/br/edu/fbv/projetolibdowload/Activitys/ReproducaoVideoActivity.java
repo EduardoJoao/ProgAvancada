@@ -1,10 +1,11 @@
-package br.edu.fbv.projetolibdowload;
+package br.edu.fbv.projetolibdowload.Activitys;
 
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.MediaController;
 import android.widget.VideoView;
+import br.edu.fbv.projetolibdowload.R;
 
 public class ReproducaoVideoActivity extends AppCompatActivity {
 

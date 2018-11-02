@@ -1,4 +1,4 @@
-package br.edu.fbv.projetolibdowload;
+package br.edu.fbv.projetolibdowload.Activitys;
 
 import android.Manifest;
 import android.content.Intent;
@@ -11,11 +11,13 @@ import android.widget.Button;
 import java.io.File;
 
 import br.edu.fbv.projetolibdowload.Dowload.Download_img;
+import br.edu.fbv.projetolibdowload.R;
 
 public class MainActivity extends AppCompatActivity {
     Button botaovideo ;
     Button botaoMusica;
     Button baixarimg;
+    Button btncadastro;
 
     private  String[] permissoesApp = new String []{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -68,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        btncadastro = findViewById(R.id.btnCadastro);
+        btncadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,CadastroContato.class));
+            }
+        });
     }
 }

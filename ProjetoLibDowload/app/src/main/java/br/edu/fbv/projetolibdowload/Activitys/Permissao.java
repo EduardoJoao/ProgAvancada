@@ -1,4 +1,4 @@
-package br.edu.fbv.projetolibdowload;
+package br.edu.fbv.projetolibdowload.Activitys;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;

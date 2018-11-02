@@ -1,10 +1,11 @@
-package br.edu.fbv.projetolibdowload;
+package br.edu.fbv.projetolibdowload.Activitys;
 
 import android.media.MediaPlayer;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import br.edu.fbv.projetolibdowload.R;
 
 public class ReproducaoMusicaActivity extends AppCompatActivity {
 
