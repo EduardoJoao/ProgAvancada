@@ -24,7 +24,9 @@
         <activity android:name=".Activitys.ReproducaoVideoActivity" />
         <activity android:name=".Activitys.ReproducaoMusicaActivity" />
         <activity android:name=".Activitys.CadastroContato" />
-        <activity android:name=".Activitys.ListaContato"></activity>
+        <activity android:name=".Activitys.ListaContato" />
+        <activity android:name=".Activitys.ListVideosActivity" />
+        <activity android:name=".Activitys.ArquivosActivity"></activity>
     </application>
 
 </manifest>

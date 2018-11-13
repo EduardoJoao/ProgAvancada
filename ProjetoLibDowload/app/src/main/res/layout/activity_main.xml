@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/baixarimg"
-        app:layout_constraintVertical_bias="0.254" />
+        app:layout_constraintVertical_bias="0.413" />
 
     <Button
         android:id="@+id/botaovideo"
@@ -32,9 +32,10 @@
         android:text="Vídeo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.125"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.107" />
+        app:layout_constraintVertical_bias="0.015" />
 
     <Button
         android:id="@+id/botaoMusica"
@@ -42,11 +43,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:text="Música"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/botaovideo" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/baixarimg"
@@ -54,11 +56,26 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="164dp"
         android:text="imgD"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botaoMusica" />
+
+    <Button
+        android:id="@+id/btnarquivoslistados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Baixados"
+        app:layout_constraintBottom_toTopOf="@+id/baixarimg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botaoMusica"
+        app:layout_constraintVertical_bias="0.67" />
 
 
 </android.support.constraint.ConstraintLayout>
