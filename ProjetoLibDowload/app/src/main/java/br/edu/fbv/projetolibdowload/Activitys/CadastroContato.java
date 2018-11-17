@@ -22,9 +22,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import br.edu.fbv.projetolibdowload.Config.ConfiguracaoFirebase;
+import br.edu.fbv.projetolibdowload.Helper.Base64;
 import br.edu.fbv.projetolibdowload.Manifest;
 import br.edu.fbv.projetolibdowload.R;
 import br.edu.fbv.projetolibdowload.model.Contato;
@@ -43,6 +45,7 @@ public class CadastroContato extends AppCompatActivity {
     private Bitmap imagem = null;
 
     private Contato contato;
+    private String id;
 
 
 
@@ -76,6 +79,8 @@ public class CadastroContato extends AppCompatActivity {
                             contato.setNome(vNome);
                             contato.setTelefone(vTelofone);
                             contato.setEmail(vEmail);
+                            id = Base64.encodeEmail(contato.getEmail());
+                            contato.setId(id);
                             contato.salvar(imagem);
 
                             FirebaseDatabase database;
@@ -151,6 +156,26 @@ public class CadastroContato extends AppCompatActivity {
 
                 if(imagem != null){
                     image.setImageBitmap(imagem);
+
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
+                    byte[] dadosimagem = baos.toByteArray();
+
+                    StorageReference storage = ConfiguracaoFirebase.getFireBaseStorage();
+                    storage.child("contato").child(id).child(id + ".jpeg");
+
+                    UploadTask upload = storage.putBytes(dadosimagem);
+                    upload.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(CadastroContato.this, "Erro ao fazer o upload da imagem",Toast.LENGTH_LONG).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(CadastroContato.this, "Sucesso ao fazer o upload  da imagem",Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
 
             }catch (Exception e){
