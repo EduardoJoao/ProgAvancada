@@ -2,6 +2,7 @@ package br.edu.fbv.projetolibdowload.Activitys;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.AdapterView;
 
 import br.edu.fbv.projetolibdowload.R;
 

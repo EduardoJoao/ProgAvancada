@@ -1,6 +1,10 @@
 package br.edu.fbv.projetolibdowload.model;
 
+import android.graphics.Bitmap;
+
 import com.google.firebase.database.DatabaseReference;
+
+import java.util.Random;
 
 import br.edu.fbv.projetolibdowload.Config.ConfiguracaoFirebase;
 
@@ -15,12 +19,15 @@ public class Contato {
 
     }
 
-    public void salvar(){
+    public void salvar(Bitmap imagem){
+
+        Random aleatorio = new Random();
 
         DatabaseReference firebase = ConfiguracaoFirebase.getFirebaseDatabase();
         firebase.child("contato")
-                .push()
+                .child(String.valueOf(aleatorio.nextInt(1999999)))
                 .setValue(this);
+
 
     }
 
