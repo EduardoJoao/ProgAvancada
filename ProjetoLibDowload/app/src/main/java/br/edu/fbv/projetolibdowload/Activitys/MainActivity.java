@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     Button botaoMusica;
     Button baixarimg;
     Button btncadastro;
+    Button arquivosListados;
 
     private  String[] permissoesApp = new String []{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -77,5 +78,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,CadastroContato.class));
             }
         });
+
+        arquivosListados = findViewById(R.id.btnarquivoslistados);
+        arquivosListados.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ArquivosActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
