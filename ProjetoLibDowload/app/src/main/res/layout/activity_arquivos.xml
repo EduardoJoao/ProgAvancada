@@ -7,7 +7,7 @@
     tools:context=".Activitys.ArquivosActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleArq"
+        android:id="@+id/recycleVideo"
         android:layout_width="446dp"
         android:layout_height="667dp"
         android:layout_margin="5dp"
