@@ -21,7 +21,7 @@ public class Contato {
 
     }
 
-    public void salvar(Bitmap imagem){
+    public void salvar(){
 
 
         DatabaseReference firebase = ConfiguracaoFirebase.getFirebaseDatabase();

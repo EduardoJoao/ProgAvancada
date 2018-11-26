@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,7 +44,7 @@ public class CadastroContato extends AppCompatActivity {
     private static final int SELECAO_GALERIA = 200;
     private StorageReference reference;
     private Bitmap imagem = null;
-
+    private String verificação;
     private Contato contato;
     private String id;
 
@@ -79,12 +80,11 @@ public class CadastroContato extends AppCompatActivity {
                             contato.setNome(vNome);
                             contato.setTelefone(vTelofone);
                             contato.setEmail(vEmail);
+                            verificação=vEmail;
                             id = Base64.encodeEmail(contato.getEmail());
                             contato.setId(id);
-                            contato.salvar(imagem);
-
-                            FirebaseDatabase database;
-                            StorageReference imagemRef = reference.child("imagens").child("profile");
+                            contato.salvar();
+                            salvarImagem();
 
                         }else {
                             Toast.makeText(CadastroContato.this, "Informar um Email",Toast.LENGTH_LONG).show();
@@ -157,25 +157,6 @@ public class CadastroContato extends AppCompatActivity {
                 if(imagem != null){
                     image.setImageBitmap(imagem);
 
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
-                    byte[] dadosimagem = baos.toByteArray();
-
-                    StorageReference storage = ConfiguracaoFirebase.getFireBaseStorage();
-                    storage.child("contato").child(id).child(id + ".jpeg");
-
-                    UploadTask upload = storage.putBytes(dadosimagem);
-                    upload.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(CadastroContato.this, "Erro ao fazer o upload da imagem",Toast.LENGTH_LONG).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(CadastroContato.this, "Sucesso ao fazer o upload  da imagem",Toast.LENGTH_LONG).show();
-                        }
-                    });
                 }
 
             }catch (Exception e){
@@ -184,6 +165,28 @@ public class CadastroContato extends AppCompatActivity {
         }else{
             Toast.makeText(CadastroContato.this, "Erro ao carregar a imagem",Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void salvarImagem(){
+
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
+        byte[] dadosimagem = baos.toByteArray();
+
+        StorageReference teste = reference.child("contato").child(verificação).child(verificação+".jpeg");
+        UploadTask upload = teste.putBytes(dadosimagem);
+        upload.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(CadastroContato.this, "Erro ao fazer o upload da imagem",Toast.LENGTH_LONG).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(CadastroContato.this, "Sucesso ao fazer o upload  da imagem",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 }
