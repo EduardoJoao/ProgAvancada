@@ -27,7 +27,7 @@ import java.io.File;
 
 import br.edu.fbv.projetolibdowload.Config.ConfiguracaoFirebase;
 import br.edu.fbv.projetolibdowload.Helper.Base64;
-import br.edu.fbv.projetolibdowload.Manifest;
+//import br.edu.fbv.projetolibdowload.Manifest;
 import br.edu.fbv.projetolibdowload.R;
 import br.edu.fbv.projetolibdowload.model.Contato;
 
