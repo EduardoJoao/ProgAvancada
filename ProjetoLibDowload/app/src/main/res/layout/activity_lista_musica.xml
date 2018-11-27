@@ -4,13 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.ArquivosActivity">
+    tools:context=".Activitys.ListaMusicaActivity">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleArq"
-        android:layout_width="446dp"
-        android:layout_height="667dp"
-        android:layout_margin="5dp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="1dp" />
+        android:id="@+id/recycleMusica"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

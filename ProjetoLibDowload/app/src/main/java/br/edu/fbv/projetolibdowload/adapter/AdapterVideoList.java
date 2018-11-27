@@ -34,7 +34,7 @@ public class AdapterVideoList extends RecyclerView.Adapter<AdapterVideoList.View
         Video video = videos.get(position);
 
         holder.nomevideo.setText(video.getNome());
-        holder.baixarvideo.setText(video.getUrldowload());
+        holder.baixarvideo.setText(video.getUrlvideo());
 
     }
 

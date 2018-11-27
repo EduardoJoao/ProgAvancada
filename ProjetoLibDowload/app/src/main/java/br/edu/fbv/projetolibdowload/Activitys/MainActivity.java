@@ -5,20 +5,30 @@ import android.content.Intent;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.io.File;
+import br.edu.fbv.libdowload.libdowload;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
+import br.edu.fbv.libdowload.libdowload;
 import br.edu.fbv.projetolibdowload.Dowload.Download_img;
 import br.edu.fbv.projetolibdowload.R;
 
 public class MainActivity extends AppCompatActivity {
+
+    libdowload libdowload = new libdowload();
     Button botaovideo ;
     Button botaoMusica;
     Button baixarimg;
     Button btncadastro;
     Button arquivosListados;
+
+    Button listvideos;
 
     private  String[] permissoesApp = new String []{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -34,6 +44,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        try {
+
+
+            Log.i("teste", libdowload.dowloadjson().toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
         //Validar Permissoes Do App
 
         Permissao.validarPermissoes(permissoesApp , this , 1);
@@ -88,5 +110,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        listvideos = findViewById(R.id.listvideosjson);
+        listvideos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ListaMusicaActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
