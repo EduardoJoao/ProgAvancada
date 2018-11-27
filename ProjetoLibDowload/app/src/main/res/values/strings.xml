@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ProjetoLibDowload</string>
+    <string name="cadastro">Cadastro do Contato</string>
+    <string name="lista">Lista de Contatos</string>
+    <string name="nome">Nome</string>
+    <string name="numero">Telefone</string>
+    <string name="email">Email</string>
+    <string name="cadatrar">Cadastrar Contato</string>
+</resources>
