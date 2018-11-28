@@ -20,7 +20,7 @@ public class ReproducaoVideoActivity extends AppCompatActivity {
         //Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.videoeclipse);
         String root_sd = Environment.getExternalStorageDirectory().toString()+"/imgdowload/eclipse.mp4";
         Uri uri = Uri.parse(root_sd);
-        VideoView videoview = (VideoView) findViewById(R.id.video_exec);
+        VideoView videoview = findViewById(R.id.video_exec);
 
         videoview.setVideoURI(uri);
         videoview.setMediaController(mediaController);
