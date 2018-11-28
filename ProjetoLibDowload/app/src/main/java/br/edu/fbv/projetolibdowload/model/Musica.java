@@ -1,10 +1,11 @@
 package br.edu.fbv.projetolibdowload.model;
 
-public class Video {
+public class Musica {
+
     String id;
     String nome;
     String urlimagem;
-    String urlvideo;
+    String urlmusica;
 
     public String getId() {
         return id;
@@ -30,11 +31,11 @@ public class Video {
         this.urlimagem = urlimagem;
     }
 
-    public String getUrlvideo() {
-        return urlvideo;
+    public String getUrlmusica() {
+        return urlmusica;
     }
 
-    public void setUrlvideo(String urlvideo) {
-        this.urlvideo = urlvideo;
+    public void setUrlmusica(String urlmusica) {
+        this.urlmusica = urlmusica;
     }
 }

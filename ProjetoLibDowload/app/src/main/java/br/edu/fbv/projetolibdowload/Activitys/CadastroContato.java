@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -41,9 +41,10 @@ public class CadastroContato extends AppCompatActivity {
     private static final int SELECAO_GALERIA = 200;
     private StorageReference reference;
     private Bitmap imagem = null;
-    private String verificação;
+
     private Contato contato;
     private String id;
+    private String verificacao;
 
 
 
@@ -77,11 +78,11 @@ public class CadastroContato extends AppCompatActivity {
                             contato.setNome(vNome);
                             contato.setTelefone(vTelofone);
                             contato.setEmail(vEmail);
-                            verificação=vEmail;
+                            verificacao = vEmail;
                             id = Base64.encodeEmail(contato.getEmail());
                             contato.setId(id);
-                            contato.salvar();
-                            salvarImagem();
+                            contato.salvar(imagem);
+
 
                         }else {
                             Toast.makeText(CadastroContato.this, "Informar um Email",Toast.LENGTH_LONG).show();
@@ -163,6 +164,25 @@ public class CadastroContato extends AppCompatActivity {
                 if(imagem != null){
                     image.setImageBitmap(imagem);
 
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
+                    byte[] dadosimagem = baos.toByteArray();
+
+                    StorageReference storage = ConfiguracaoFirebase.getFireBaseStorage();
+                    storage.child("contato").child(id).child(id + ".jpeg");
+
+                    UploadTask upload = storage.putBytes(dadosimagem);
+                    upload.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(CadastroContato.this, "Erro ao fazer o upload da imagem",Toast.LENGTH_LONG).show();
+                        }
+                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(CadastroContato.this, "Sucesso ao fazer o upload  da imagem",Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
 
             }catch (Exception e){
@@ -180,7 +200,7 @@ public class CadastroContato extends AppCompatActivity {
         imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
         byte[] dadosimagem = baos.toByteArray();
 
-        StorageReference teste = reference.child("contato").child(verificação).child(verificação+".jpeg");
+        StorageReference teste = reference.child("contato").child(verificacao).child(verificacao+".jpeg");
         UploadTask upload = teste.putBytes(dadosimagem);
         upload.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -196,7 +216,7 @@ public class CadastroContato extends AppCompatActivity {
     }
 
     public void downloadLib(){
-      reference.child("contato").child(verificação).child(verificação +".jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+      reference.child("contato").child(verificacao).child(verificacao +".jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
           @Override
           public void onSuccess(Uri uri) {
 
