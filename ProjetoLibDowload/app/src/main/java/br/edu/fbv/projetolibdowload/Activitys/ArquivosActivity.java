@@ -19,7 +19,8 @@ import br.edu.fbv.projetolibdowload.model.Arquivo;
 public class ArquivosActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-   // private List<Arquivo> arquivos = new ArrayList<>();
+
+
 
     private File file;
 
@@ -38,9 +39,6 @@ public class ArquivosActivity extends AppCompatActivity {
         String root_sd = Environment.getExternalStorageDirectory().toString();
         file =  new File(root_sd + "/imgdowload");
 
-       // caminhoarq = (TextView) findViewById(R.id.btncaminho);
-       // caminhoarq.setText(root_sd);
-        //File arqRecuperados[] = file.listFiles();
 
 
         files = Arrays.asList(file.listFiles());
