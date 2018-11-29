@@ -7,6 +7,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,34 +19,32 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 import br.edu.fbv.projetolibdowload.Config.ConfiguracaoFirebase;
 import br.edu.fbv.projetolibdowload.Helper.Base64;
-//import br.edu.fbv.projetolibdowload.Manifest;
 import br.edu.fbv.projetolibdowload.R;
 import br.edu.fbv.projetolibdowload.model.Contato;
 
 public class CadastroContato extends AppCompatActivity {
 
-    private Button lista, cadastrar;
+    private Button lista, cadastrar, download;
 
     private EditText nome, telefone, email;
 
     private ImageView image;
     private ImageButton imageButtonCamera,imageButtonGaleria;
-    private static final int SELECAO_CAMERA = 100;
+    private static final int SELECAO_CAMERA = 1;
     private static final int SELECAO_GALERIA = 200;
     private StorageReference reference;
     private Bitmap imagem = null;
 
     private Contato contato;
     private String id;
+    private String verificacao;
 
 
 
@@ -79,12 +78,11 @@ public class CadastroContato extends AppCompatActivity {
                             contato.setNome(vNome);
                             contato.setTelefone(vTelofone);
                             contato.setEmail(vEmail);
+                            verificacao = vEmail;
                             id = Base64.encodeEmail(contato.getEmail());
                             contato.setId(id);
                             contato.salvar(imagem);
 
-                            FirebaseDatabase database;
-                            StorageReference imagemRef = reference.child("imagens").child("profile");
 
                         }else {
                             Toast.makeText(CadastroContato.this, "Informar um Email",Toast.LENGTH_LONG).show();
@@ -130,6 +128,15 @@ public class CadastroContato extends AppCompatActivity {
                 if(camera.resolveActivity(getPackageManager()) !=null ) {
                     startActivityForResult(camera, SELECAO_GALERIA);
                 }
+            }
+        });
+
+
+        download = findViewById(R.id.download);
+        download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadLib();
             }
         });
 
@@ -184,6 +191,43 @@ public class CadastroContato extends AppCompatActivity {
         }else{
             Toast.makeText(CadastroContato.this, "Erro ao carregar a imagem",Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void salvarImagem(){
+
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
+        byte[] dadosimagem = baos.toByteArray();
+
+        StorageReference teste = reference.child("contato").child(verificacao).child(verificacao+".jpeg");
+        UploadTask upload = teste.putBytes(dadosimagem);
+        upload.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(CadastroContato.this, "Erro ao fazer o upload da imagem",Toast.LENGTH_LONG).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(CadastroContato.this, "Sucesso ao fazer o upload  da imagem",Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public void downloadLib(){
+      reference.child("contato").child(verificacao).child(verificacao +".jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+          @Override
+          public void onSuccess(Uri uri) {
+
+              Log.i("teste", uri.toString());
+          }
+      }).addOnFailureListener(new OnFailureListener() {
+          @Override
+          public void onFailure(@NonNull Exception e) {
+              Toast.makeText(CadastroContato.this, "Erro ao fazer o download da imagem",Toast.LENGTH_LONG).show();
+          }
+      });
     }
 
 }
