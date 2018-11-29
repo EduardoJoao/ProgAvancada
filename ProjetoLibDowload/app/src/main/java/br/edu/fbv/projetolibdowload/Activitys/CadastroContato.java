@@ -3,6 +3,7 @@ package br.edu.fbv.projetolibdowload.Activitys;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+
+import br.edu.fbv.libdowload.libdowload;
 
 import br.edu.fbv.projetolibdowload.Config.ConfiguracaoFirebase;
 import br.edu.fbv.projetolibdowload.Helper.Base64;
@@ -79,10 +83,8 @@ public class CadastroContato extends AppCompatActivity {
                             contato.setTelefone(vTelofone);
                             contato.setEmail(vEmail);
                             verificacao = vEmail;
-                            id = Base64.encodeEmail(contato.getEmail());
-                            contato.setId(id);
-                            contato.salvar(imagem);
-
+                            contato.salvar();
+                            salvarImagem();
 
                         }else {
                             Toast.makeText(CadastroContato.this, "Informar um Email",Toast.LENGTH_LONG).show();
@@ -163,26 +165,6 @@ public class CadastroContato extends AppCompatActivity {
 
                 if(imagem != null){
                     image.setImageBitmap(imagem);
-
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
-                    byte[] dadosimagem = baos.toByteArray();
-
-                    StorageReference storage = ConfiguracaoFirebase.getFireBaseStorage();
-                    storage.child("contato").child(id).child(id + ".jpeg");
-
-                    UploadTask upload = storage.putBytes(dadosimagem);
-                    upload.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(CadastroContato.this, "Erro ao fazer o upload da imagem",Toast.LENGTH_LONG).show();
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(CadastroContato.this, "Sucesso ao fazer o upload  da imagem",Toast.LENGTH_LONG).show();
-                        }
-                    });
                 }
 
             }catch (Exception e){
@@ -197,10 +179,10 @@ public class CadastroContato extends AppCompatActivity {
 
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
+        imagem.compress(Bitmap.CompressFormat.PNG,70,baos);
         byte[] dadosimagem = baos.toByteArray();
 
-        StorageReference teste = reference.child("contato").child(verificacao).child(verificacao+".jpeg");
+        StorageReference teste = reference.child("contato").child(verificacao).child(verificacao +".png");
         UploadTask upload = teste.putBytes(dadosimagem);
         upload.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -216,11 +198,14 @@ public class CadastroContato extends AppCompatActivity {
     }
 
     public void downloadLib(){
-      reference.child("contato").child(verificacao).child(verificacao +".jpeg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+      reference.child("contato").child(verificacao).child(verificacao +".png").getDownloadUrl()
+              .addOnSuccessListener(new OnSuccessListener<Uri>() {
           @Override
           public void onSuccess(Uri uri) {
+              Log.i("great",uri.toString());
+              contato.setUrl(uri.toString());
+              Log.i("great5",contato.getUrl().toString());
 
-              Log.i("teste", uri.toString());
           }
       }).addOnFailureListener(new OnFailureListener() {
           @Override

@@ -1,6 +1,7 @@
 package br.edu.fbv.projetolibdowload.model;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.storage.StorageReference;
@@ -12,7 +13,7 @@ import br.edu.fbv.projetolibdowload.Helper.Base64;
 
 public class Contato {
 
-    private String id;
+    private String url;
     private String nome;
     private String telefone;
     private String email;
@@ -21,25 +22,21 @@ public class Contato {
 
     }
 
-    public void salvar(Bitmap imagem){
-
+    public void salvar(){
 
         DatabaseReference firebase = ConfiguracaoFirebase.getFirebaseDatabase();
         firebase.child("contato")
-                .child(this.id)
+                .push()
                 .setValue(this);
 
-
-
-
     }
 
-    public String getId() {
-        return id;
+    public String getUrl() {
+        return url;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getNome() {
